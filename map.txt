@@ -1,0 +1,15 @@
+
+0, 2: "You are in the starting room. It is dark and dusty.",
+0, 1: " It has the bigger size bed it has clothes in the wardrobe.",
+1, 2: "This is the drawing room it has television sofa Lamp..",
+1, 1: "It is for the storage for extra things.",
+2, 2: "It has stove,  oven, Refrigerator, Cabinets, Bread toaster and vessels.",
+2, 1: ": It has a small size bed it is furnished and hase clothes in the wardrobe.",
+3, 1: ": It has stove,  oven, Refrigerator, Cabinets, Bread toaster and vessels.",
+3, 2: ": It has a small size bed it is furnished and hase clothes in the wardrobe.",
+0, 0: " Here we can store all the grains and extra things which is used in kitchen or the house.",
+1, 0: "This is the drawing room it has television sofa Lamp.",
+2, 0: "It has the bigger size bed it has clothes in the wardrobe.",
+3, 0: "Here we can store all the grains and extra things which is used in kitchen or the house.",
+
+
