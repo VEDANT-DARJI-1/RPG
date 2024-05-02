@@ -1,5 +1,16 @@
+############################################################################
+# Title:calculator_cs30_part1
+# Class: CS30
+# Assignment: House
+# coder: Vedant Darji
+# Version: 3
+###########################################################################
+
+import inventory
 # Define the initial position
-current_position = (0, 2)
+current_position = (0, 0)
+
+
 
 # Define the map with rooms and descriptions
 world_map = {}
@@ -19,8 +30,11 @@ with open("map.txt", "r") as map_file:
                     print(f"Issue converting position to integer for description: {description}")
         else:
             print(f"Invalid entry in map file: {line}")
-
+inventory.pick_up_object("key", {"color": "gold"})
+inventory.check_inventory()
+inventory.search_area()
 # Main game loop
+
 while True:
     print(world_map.get(current_position, "Unknown room"))
 
