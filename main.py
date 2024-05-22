@@ -8,7 +8,13 @@
 
 import inventory
 import player
+from map import Map
+
+
 main_player = player.Player()
+main_inventory = inventory.Inventory() 
+world_map_instance = Map()
+
 
 
 
@@ -26,15 +32,15 @@ with open("map.txt", "r") as map_file:
             position, description = parts
             if position:
                 try:
-                    position_tuple = tuple(map(int, filter(None, position.split(","))))
-                    world_map[position_tuple] = description
+                    position_tuple = tuple(int(x) for x in parts[0].split(', '))
+                    world_map_instance.world_map[position_tuple] = description
                 except ValueError:
                     print(f"Issue converting position to integer for description: {description}")
         else:
             print(f"Invalid entry in map file: {line}")
-inventory.pick_up_object("key", {"color": "gold"})
-inventory.check_inventory()
-inventory.search_area()
+main_inventory.pick_up_object("key", {"color": "gold"})
+main_inventory.check_inventory()
+main_inventory.search_area()
 # Main game loop
 
 while True:
@@ -62,7 +68,7 @@ while True:
             continue
 
     # Update player's position based on direction
-    x, y = main_player.location()
+    x, y = main_player.get_location()
     if direction == 'north':
         y += 1
     elif direction == 'south':
