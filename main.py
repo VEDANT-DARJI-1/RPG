@@ -7,8 +7,10 @@
 ###########################################################################
 
 import inventory
-# Define the initial position
-current_position = (0, 0)
+import player
+main_player = player.Player()
+
+
 
 
 
@@ -36,7 +38,8 @@ inventory.search_area()
 # Main game loop
 
 while True:
-    print(world_map.get(current_position, "Unknown room"))
+    x = tuple(main_player.get_location())
+    print(world_map.get(x, "Unknown room"))
 
     # Display menu options
     print("\nChoose a movement option: walk/swim/move/explore/sail/teleport/run/fly")
@@ -59,7 +62,7 @@ while True:
             continue
 
     # Update player's position based on direction
-    x, y = current_position
+    x, y = main_player.location()
     if direction == 'north':
         y += 1
     elif direction == 'south':
@@ -71,7 +74,7 @@ while True:
 
     # Check if the new position is within the map
     if (x, y) in world_map:
-        current_position = (x, y)
+        main_player.change_location(x, y)
     else:
         print("You cannot go in that direction. Please choose a different direction.")
 
