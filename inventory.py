@@ -1,6 +1,7 @@
 class Inventory:
-    
+
     collected_objects = {}
+
     def check_inventory(self):
         if self.collected_objects:
             print("Inventory:")
@@ -8,6 +9,7 @@ class Inventory:
                 print(f"{item}: {details}")
         else:
             print("Inventory is empty.")
+
     def search_area(self):
         print("Searching the area for objects...")
         # Add logic to search the area for objects

@@ -11,6 +11,3 @@
 1, 0: "This is the drawing room it has television sofa Lamp.",
 2, 0: "It has the bigger size bed it has clothes in the wardrobe.",
 3, 0: "Here we can store all the grains and extra things which is used in kitchen or the house.",
-
-
-

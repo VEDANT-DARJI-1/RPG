@@ -1,10 +1,12 @@
 class Player:
 
-  def __init__(self):
-      self.location = [0, 0]
+    def __init__(self):
+        self.x = 0
+        self.y = 0
 
-  def change_location(self, x, y):
-      self.location = [x, y]
+    def get_location(self):
+        return self.x, self.y
 
-  def get_location(self):
-    return self.location
+    def set_location(self, new_x, new_y):
+        self.x = new_x
+        self.y = new_y

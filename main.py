@@ -10,37 +10,19 @@ import inventory
 import player
 from map import Map
 
-
 main_player = player.Player()
-main_inventory = inventory.Inventory() 
+main_inventory = inventory.Inventory()
 world_map_instance = Map()
-
-
-
-
-
+world_map = world_map_instance.get_world_map("map.txt")
 
 # Define the map with rooms and descriptions
-world_map = {}
-with open("map.txt", "r") as map_file:
-    for line in map_file:
-        line = line.strip()
-        if not line:
-            continue
-        parts = line.split(": ", 1)
-        if len(parts) == 2:
-            position, description = parts
-            if position:
-                try:
-                    position_tuple = tuple(int(x) for x in parts[0].split(', '))
-                    world_map_instance.world_map[position_tuple] = description
-                except ValueError:
-                    print(f"Issue converting position to integer for description: {description}")
-        else:
-            print(f"Invalid entry in map file: {line}")
+
 main_inventory.pick_up_object("key", {"color": "gold"})
 main_inventory.check_inventory()
 main_inventory.search_area()
+if not main_player.get_location():
+    main_player.set_location(0, 0)
+
 # Main game loop
 
 while True:
@@ -48,18 +30,33 @@ while True:
     print(world_map.get(x, "Unknown room"))
 
     # Display menu options
-    print("\nChoose a movement option: walk/swim/move/explore/sail/teleport/run/fly")
+    print(
+        "\nChoose a movement option: walk/swim/move/explore/sail/teleport/run/fly/check inventory/view map"
+    )
     action = input("Enter your action: ")
 
     # Check for valid action
-    if action not in ['walk', 'swim', 'move', 'explore', 'sail', 'teleport', 'run', 'fly']:
+    if action not in [
+            'walk', 'swim', 'move', 'explore', 'sail', 'teleport', 'run',
+            'fly', 'check inventory', 'view map'
+    ]:
         print("Invalid action! Please choose a valid action.")
         continue
-
+    # Inventory check
+    if action.lower() == 'check inventory':
+        main_inventory.check_inventory()
+        continue
+    # View map
+    if action.lower() == 'view map':
+        map_string = world_map_instance.get_formatted_map()
+        print(map_string)
+        continue
     # Submenu for direction choice
     direction = ""
     while direction not in ['north', 'south', 'east', 'west']:
-        direction = input("Choose a direction (north/south/east/west) or type 'quit' to exit: ")
+        direction = input(
+            "Choose a direction (north/south/east/west) or type 'quit' to exit: "
+        )
         if direction == 'quit':
             print("Exiting the game. Goodbye!")
             break
@@ -69,20 +66,22 @@ while True:
 
     # Update player's position based on direction
     x, y = main_player.get_location()
+    new_x, new_y = x, y
+
     if direction == 'north':
-        y += 1
+        new_y += 1
     elif direction == 'south':
-        y -= 1
+        new_y -= 1
     elif direction == 'east':
-        x += 1
+        new_x += 1
     elif direction == 'west':
-        x -= 1
+        new_x -= 1
 
     # Check if the new position is within the map
-    if (x, y) in world_map:
-        main_player.change_location(x, y)
+    if (new_x, new_y) in world_map_instance.get_world_map("map.txt"):
+        main_player.set_location(new_x, new_y)
     else:
-        print("You cannot go in that direction. Please choose a different direction.")
+        print("There is no path in that direction.")
 
     # Check for quit option
     if direction == 'quit':
